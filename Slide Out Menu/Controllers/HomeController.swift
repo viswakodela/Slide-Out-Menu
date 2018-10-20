@@ -11,10 +11,55 @@ import UIKit
 class HomeController: UITableViewController {
 
     let cellId = "cellId"
+    let menuController = MenuController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItems()
+        
+        menuController.view.frame = CGRect(x: -300, y: 0, width: 300, height: self.view.frame.height)
+        guard let keyWindow = UIApplication.shared.keyWindow else {return}
+        keyWindow.addSubview(menuController.view)
+        addChild(menuController)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        view.addGestureRecognizer(panGesture)
+    }
+    
+    fileprivate var isMenuOpened = false
+    
+    @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+        if gesture.state == .changed {
+            var x = translation.x
+            print(x)
+            
+            if isMenuOpened {
+                x = x + 300
+            }
+            
+            x = min(300, x)
+            x = max(0, x)
+            menuController.view.transform = CGAffineTransform(translationX: x, y: 0)
+            navigationController?.view.transform = CGAffineTransform(translationX: x, y: 0)
+            
+        } else if gesture.state == .ended {
+            
+            if isMenuOpened {
+                // abs() method will turn any value in negavie into positive.
+                if abs(translation.x) < 40 {
+                    openButtonTapped()
+                } else {
+                    handleHide()
+                }
+            } else {
+                if translation.x < 40 {
+                    handleHide()
+                } else {
+                    openButtonTapped()
+                }
+            }
+        }
     }
     
     fileprivate func setupNavigationItems() {
@@ -26,28 +71,22 @@ class HomeController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(handleHide))
     }
     
-    let menuController = MenuController()
-    @objc func openButtonTapped() {
-        
-        menuController.view.frame = CGRect(x: -300, y: 0, width: 300, height: self.view.frame.height)
-        guard let keyWindow = UIApplication.shared.keyWindow else {return}
-        keyWindow.addSubview(menuController.view)
-        
+    fileprivate func performTransform(transform: CGAffineTransform) {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-//          both will work
-//          self.menuController.view.frame = CGRect(x: 0, y: 0, width: 300, height: self.view.frame.height)
-            self.menuController.view.transform = CGAffineTransform(translationX: 300, y: 0)
+            self.menuController.view.transform = transform
+//            self.view.transform = transform
+            self.navigationController?.view.transform = transform
         }, completion: nil)
-        addChild(menuController)
+    }
+    
+    @objc func openButtonTapped() {
+        isMenuOpened = true
+        performTransform(transform: CGAffineTransform(translationX: 300, y: 0))
     }
     
     @objc func handleHide() {
-        
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
-            self.menuController.view.transform = .identity
-        }, completion: nil)
-//        menuController.view.removeFromSuperview()
-//        menuController.removeFromParent()
+        isMenuOpened = false
+        performTransform(transform: .identity)
     }
     
 }
