@@ -18,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        let mainController = UINavigationController(rootViewController: HomeController())
-        window?.rootViewController = mainController
+//        let mainController = UINavigationController(rootViewController: HomeController())
+//        window?.rootViewController = mainController
+        let baseScreen = BaseScreenViewController()
+        window?.rootViewController = baseScreen
 //        mainController.navigationBar.barTintColor = .blue
 //        mainController.navigationBar.isTranslucent = false
         

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD4F87DC217BEF3F00DEFC48 /* BaseScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */; };
+		BD4F87DF217E75F500DEFC48 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */; };
 		BDC499C121778FAF00297DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC499C021778FAF00297DDB /* AppDelegate.swift */; };
 		BDC499C321778FAF00297DDB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC499C221778FAF00297DDB /* HomeController.swift */; };
 		BDC499C621778FAF00297DDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDC499C421778FAF00297DDB /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScreenViewController.swift; sourceTree = "<group>"; };
+		BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
 		BDC499BD21778FAF00297DDB /* Slide Out Menu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slide Out Menu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDC499C021778FAF00297DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDC499C221778FAF00297DDB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -37,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD4F87DD217E75C800DEFC48 /* Base Screen */ = {
+			isa = PBXGroup;
+			children = (
+				BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */,
+				BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */,
+			);
+			path = "Base Screen";
+			sourceTree = "<group>";
+		};
 		BDC499B421778FAF00297DDB = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +82,7 @@
 		BDC499D221779D4A00297DDB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BD4F87DD217E75C800DEFC48 /* Base Screen */,
 				BDC499C221778FAF00297DDB /* HomeController.swift */,
 				BDC499D321779D5D00297DDB /* MenuController.swift */,
 			);
@@ -148,7 +162,9 @@
 			files = (
 				BDC499C321778FAF00297DDB /* HomeController.swift in Sources */,
 				BDC499D421779D5D00297DDB /* MenuController.swift in Sources */,
+				BD4F87DF217E75F500DEFC48 /* MenuHeaderView.swift in Sources */,
 				BDC499C121778FAF00297DDB /* AppDelegate.swift in Sources */,
+				BD4F87DC217BEF3F00DEFC48 /* BaseScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UITableViewController {
+class HomeController: UITableViewController, UIGestureRecognizerDelegate {
 
     let cellId = "cellId"
     let menuController = MenuController()
@@ -22,8 +22,25 @@ class HomeController: UITableViewController {
         keyWindow.addSubview(menuController.view)
         addChild(menuController)
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        view.addGestureRecognizer(panGesture)
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+//        panGesture.delegate = self
+//        view.addGestureRecognizer(panGesture)
+        setupDarkCoverView()
+    }
+    
+    let darkCoverView = UIView()
+    
+    func setupDarkCoverView() {
+        darkCoverView.alpha = 0
+        darkCoverView.isUserInteractionEnabled = false
+        guard let keyWindow = UIApplication.shared.keyWindow else {return}
+        darkCoverView.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        keyWindow.addSubview(darkCoverView)
+        darkCoverView.frame = keyWindow.frame
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     fileprivate var isMenuOpened = false
@@ -32,27 +49,29 @@ class HomeController: UITableViewController {
         let translation = gesture.translation(in: view)
         if gesture.state == .changed {
             var x = translation.x
-            print(x)
             
             if isMenuOpened {
                 x = x + 300
             }
-            
             x = min(300, x)
             x = max(0, x)
             menuController.view.transform = CGAffineTransform(translationX: x, y: 0)
             navigationController?.view.transform = CGAffineTransform(translationX: x, y: 0)
+            darkCoverView.transform = CGAffineTransform(translationX: x, y: 0)
+            
+            darkCoverView.alpha = x / 300
             
         } else if gesture.state == .ended {
             
             if isMenuOpened {
-                // abs() method will turn any value in negavie into positive.
+                // abs() method will turn any value from negavie to positive.
                 if abs(translation.x) < 40 {
                     openButtonTapped()
                 } else {
                     handleHide()
                 }
             } else {
+                
                 if translation.x < 40 {
                     handleHide()
                 } else {
@@ -76,6 +95,10 @@ class HomeController: UITableViewController {
             self.menuController.view.transform = transform
 //            self.view.transform = transform
             self.navigationController?.view.transform = transform
+            self.darkCoverView.transform = transform
+            
+            self.darkCoverView.alpha = transform == .identity ? 0 : 1
+            
         }, completion: nil)
     }
     
@@ -88,7 +111,6 @@ class HomeController: UITableViewController {
         isMenuOpened = false
         performTransform(transform: .identity)
     }
-    
 }
 
 //MARK:- TableView Methods
@@ -102,6 +124,4 @@ extension HomeController {
         cell.textLabel?.text = "Row: \(indexPath.row)"
         return cell
     }
-    
 }
-
