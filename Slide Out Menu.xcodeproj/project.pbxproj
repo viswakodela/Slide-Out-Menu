@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD24046E2184C25A0042F422 /* BookMarksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24046D2184C25A0042F422 /* BookMarksController.swift */; };
 		BD4F87DC217BEF3F00DEFC48 /* BaseScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */; };
 		BD4F87DF217E75F500DEFC48 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */; };
+		BD4F87E1217E803100DEFC48 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87E0217E803100DEFC48 /* ProfileImageView.swift */; };
+		BD4F87E4217E89E900DEFC48 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87E3217E89E900DEFC48 /* MenuCell.swift */; };
+		BD4F87E62180007E00DEFC48 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4F87E52180007E00DEFC48 /* ListViewController.swift */; };
+		BD976AA92187823100C420E3 /* ChatRoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD976AA82187823100C420E3 /* ChatRoomsController.swift */; };
+		BD976AAB21878AA300C420E3 /* ChatRoomsMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD976AAA21878AA300C420E3 /* ChatRoomsMenuCell.swift */; };
 		BDC499C121778FAF00297DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC499C021778FAF00297DDB /* AppDelegate.swift */; };
 		BDC499C321778FAF00297DDB /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC499C221778FAF00297DDB /* HomeController.swift */; };
 		BDC499C621778FAF00297DDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDC499C421778FAF00297DDB /* Main.storyboard */; };
@@ -18,8 +24,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD24046D2184C25A0042F422 /* BookMarksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarksController.swift; sourceTree = "<group>"; };
 		BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScreenViewController.swift; sourceTree = "<group>"; };
 		BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
+		BD4F87E0217E803100DEFC48 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		BD4F87E3217E89E900DEFC48 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		BD4F87E52180007E00DEFC48 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		BD976AA82187823100C420E3 /* ChatRoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomsController.swift; sourceTree = "<group>"; };
+		BD976AAA21878AA300C420E3 /* ChatRoomsMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomsMenuCell.swift; sourceTree = "<group>"; };
 		BDC499BD21778FAF00297DDB /* Slide Out Menu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slide Out Menu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDC499C021778FAF00297DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDC499C221778FAF00297DDB /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -45,9 +57,29 @@
 			isa = PBXGroup;
 			children = (
 				BD4F87DB217BEF3F00DEFC48 /* BaseScreenViewController.swift */,
-				BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */,
+				BD4F87E0217E803100DEFC48 /* ProfileImageView.swift */,
+				BD4F87E52180007E00DEFC48 /* ListViewController.swift */,
 			);
 			path = "Base Screen";
+			sourceTree = "<group>";
+		};
+		BD4F87E2217E89C100DEFC48 /* MenuController */ = {
+			isa = PBXGroup;
+			children = (
+				BDC499D321779D5D00297DDB /* MenuController.swift */,
+				BD4F87DE217E75F500DEFC48 /* MenuHeaderView.swift */,
+				BD4F87E3217E89E900DEFC48 /* MenuCell.swift */,
+			);
+			path = MenuController;
+			sourceTree = "<group>";
+		};
+		BD976AAC21878AAC00C420E3 /* ChatRoonsCell */ = {
+			isa = PBXGroup;
+			children = (
+				BD976AA82187823100C420E3 /* ChatRoomsController.swift */,
+				BD976AAA21878AA300C420E3 /* ChatRoomsMenuCell.swift */,
+			);
+			path = ChatRoonsCell;
 			sourceTree = "<group>";
 		};
 		BDC499B421778FAF00297DDB = {
@@ -82,9 +114,11 @@
 		BDC499D221779D4A00297DDB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BD976AAC21878AAC00C420E3 /* ChatRoonsCell */,
+				BD4F87E2217E89C100DEFC48 /* MenuController */,
 				BD4F87DD217E75C800DEFC48 /* Base Screen */,
 				BDC499C221778FAF00297DDB /* HomeController.swift */,
-				BDC499D321779D5D00297DDB /* MenuController.swift */,
+				BD24046D2184C25A0042F422 /* BookMarksController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -160,10 +194,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD4F87E1217E803100DEFC48 /* ProfileImageView.swift in Sources */,
+				BD976AAB21878AA300C420E3 /* ChatRoomsMenuCell.swift in Sources */,
+				BD4F87E4217E89E900DEFC48 /* MenuCell.swift in Sources */,
 				BDC499C321778FAF00297DDB /* HomeController.swift in Sources */,
 				BDC499D421779D5D00297DDB /* MenuController.swift in Sources */,
+				BD24046E2184C25A0042F422 /* BookMarksController.swift in Sources */,
 				BD4F87DF217E75F500DEFC48 /* MenuHeaderView.swift in Sources */,
+				BD976AA92187823100C420E3 /* ChatRoomsController.swift in Sources */,
 				BDC499C121778FAF00297DDB /* AppDelegate.swift in Sources */,
+				BD4F87E62180007E00DEFC48 /* ListViewController.swift in Sources */,
 				BD4F87DC217BEF3F00DEFC48 /* BaseScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

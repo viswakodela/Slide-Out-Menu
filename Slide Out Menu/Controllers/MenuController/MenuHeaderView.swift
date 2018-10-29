@@ -16,6 +16,16 @@ class MenuHeaderView: UIView {
         setupViews()
     }
     
+    let profileImageView: ProfileImageView = {
+        let iv = ProfileImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.image = UIImage(named: "girl_profile")
+        iv.layer.cornerRadius = 24
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }()
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,13 +45,25 @@ class MenuHeaderView: UIView {
     let statsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "42 Following   700 Followers"
+//        label.text = "42 Following   700 Followers"
         return label
     }()
     
+    func attributedText() -> NSAttributedString {
+        let attributedText = NSMutableAttributedString(string: "42", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .heavy)])
+        attributedText.append(NSAttributedString(string: " Following", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]))
+        attributedText.append(NSAttributedString(string: "   700", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .heavy)]))
+        attributedText.append(NSAttributedString(string: " Followers", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black]))
+        
+        return attributedText
+    }
+    
     fileprivate func setupViews() {
         
-        let views = [UIView(), nameLabel, userName, UIView(), UIView(), statsLabel]
+        let views = [UIStackView(arrangedSubviews: [profileImageView, UIView()]), nameLabel, userName, UIView(), UIView(), statsLabel]
+        
+        statsLabel.attributedText = self.attributedText()
+        
         let stackView = UIStackView(arrangedSubviews: views)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical

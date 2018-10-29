@@ -16,9 +16,21 @@ class BaseScreenViewController: UIViewController {
         setupViews()
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         view.addGestureRecognizer(panGesture)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        darkCoverView.addGestureRecognizer(tapGesture)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return isMenuOpened ? .lightContent : .default
+    }
+    
+    @objc func handleTap() {
+        closeMenu()
     }
     
     var redViewLeadingAnchor: NSLayoutConstraint!
+    var redViewTrailingAnchor: NSLayoutConstraint!
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
@@ -29,6 +41,7 @@ class BaseScreenViewController: UIViewController {
         x = max(0, x) // this piece of code is for the negative direction
         
         self.redViewLeadingAnchor.constant = x
+        self.redViewTrailingAnchor.constant = x
         darkCoverView.alpha = x / menuWidth
         
         if gesture.state == .ended {
@@ -57,14 +70,58 @@ class BaseScreenViewController: UIViewController {
     
     func openMenu() {
         redViewLeadingAnchor.constant = menuWidth
+        redViewTrailingAnchor.constant = menuWidth
         isMenuOpened = true
         performAnimation()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     func closeMenu() {
         redViewLeadingAnchor.constant = 0
+        redViewTrailingAnchor.constant = 0
         isMenuOpened = false
         performAnimation()
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    func didSelectMenuItems(indexPath: IndexPath) {
+        
+        setupClearMemoryLeaks()
+        
+        switch indexPath.row {
+        case 0:
+            let vc = UINavigationController(rootViewController: HomeController())
+            redView.addSubview(vc.view)
+            addChild(vc)
+            rightViewController = vc
+            
+        case 1:
+            let listController = ListViewController()
+            let navigationController = UINavigationController(rootViewController: listController)
+            redView.addSubview(navigationController.view)
+            addChild(navigationController)
+            rightViewController = navigationController
+        case 2:
+            let bookMarkss = BookMarksController()
+            self.redView.addSubview(bookMarkss.view)
+            addChild(bookMarkss)
+            rightViewController = bookMarkss
+        default:
+            let tabBarController = UITabBarController()
+            let momentsController = UIViewController()
+            momentsController.view.backgroundColor = .orange
+            let navController = UINavigationController(rootViewController: momentsController)
+            momentsController.navigationItem.title = "Moments"
+            tabBarController.viewControllers = [navController]
+            navController.tabBarItem.title = "Moments"
+            
+            redView.addSubview(tabBarController.view)
+            addChild(tabBarController)
+            rightViewController = tabBarController
+        }
+        
+        redView.bringSubviewToFront(darkCoverView)
+        closeMenu()
     }
     
     func performAnimation() {
@@ -77,7 +134,7 @@ class BaseScreenViewController: UIViewController {
     let redView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         return view
     }()
     
@@ -92,11 +149,13 @@ class BaseScreenViewController: UIViewController {
     var isMenuOpened = false
     
     func setupViews() {
+        
         self.view.addSubview(redView)
         redView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         self.redViewLeadingAnchor = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
         redViewLeadingAnchor.isActive = true
-        redView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.redViewTrailingAnchor = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        redViewTrailingAnchor.isActive = true
         redView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         view.addSubview(blueView)
@@ -107,12 +166,22 @@ class BaseScreenViewController: UIViewController {
         
         setupViewControllers()
     }
-    let homeControlelr = HomeController()
-    let menuController = MenuController()
+    
+    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeController())
+    
+    func setupClearMemoryLeaks() {
+        rightViewController.view.removeFromSuperview()
+        rightViewController.removeFromParent()
+    }
+    
+    
     func setupViewControllers() {
         
+//        let homeControlelr = HomeController()
+        let menuController = ChatRoomsController()
         
-        guard let homeView = homeControlelr.view else {return}
+        
+        guard let homeView = rightViewController.view else {return}
         guard let menuView = menuController.view else {return}
         homeView.translatesAutoresizingMaskIntoConstraints = false
         menuView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +204,7 @@ class BaseScreenViewController: UIViewController {
         menuView.trailingAnchor.constraint(equalTo: blueView.trailingAnchor).isActive = true
         menuView.bottomAnchor.constraint(equalTo: blueView.bottomAnchor).isActive = true
         
-        addChild(homeControlelr)
+        addChild(rightViewController)
         addChild(menuController)
         
     }
